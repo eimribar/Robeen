@@ -1,0 +1,9 @@
+{
+  "name": "Robeen - authentication screen",
+  "description": "An intelligent parenting assistant that analyzes baby cries via video/audio to determine needs and provides actionable soothing steps using Robeen technology.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
