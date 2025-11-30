@@ -400,6 +400,7 @@ const DemoInsights = () => (
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -469,8 +470,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
           </div>
 
           <div className="flex items-center gap-3">
-             <button 
-              onClick={onGetStarted}
+             <button
+              onClick={() => setShowComingSoon(true)}
               className="bg-slate-900 text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl active:scale-95 hidden md:block"
             >
               Download the App
@@ -486,7 +487,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 shadow-xl md:hidden">
                 <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Features</a>
                 <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Stories</a>
-                <button onClick={onGetStarted} className="text-lg font-medium text-slate-600 text-left">Download the App</button>
+                <button onClick={() => { setMobileMenuOpen(false); setShowComingSoon(true); }} className="text-lg font-medium text-slate-600 text-left">Download the App</button>
             </div>
         )}
       </nav>
@@ -516,35 +517,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full animate-fade-in-up delay-200">
-                {/* Apple App Store Button */}
-                <button 
-                    onClick={onGetStarted} 
-                    className="bg-slate-900 text-white px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-3 hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                {/* Apple App Store Badge */}
+                <button
+                    onClick={() => setShowComingSoon(true)}
+                    className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
-                    <Apple size={28} fill="currentColor" />
-                    <div className="flex flex-col items-start leading-none text-left">
-                        <span className="text-[10px] font-medium text-slate-400">Download on the</span>
-                        <span className="text-lg font-bold">App Store</span>
-                    </div>
+                    <img
+                        src="/badges/app-store-badge.svg"
+                        alt="Download on the App Store"
+                        className="h-[52px]"
+                    />
                 </button>
 
-                {/* Google Play Store Button */}
-                <button 
-                    onClick={onGetStarted} 
-                    className="bg-white text-slate-900 px-6 py-3 rounded-2xl border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                {/* Google Play Badge */}
+                <button
+                    onClick={() => setShowComingSoon(true)}
+                    className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
-                    <div className="w-7 h-7">
-                        <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                            <path d="M3.6 3.6c-.2.2-.4.6-.4 1.1v14.6c0 .5.2.9.4 1.1l.1.1 8.2-8.2v-.2L3.7 3.5l-.1.1z" fill="#2196F3"/>
-                            <path d="M15.7 15.3l-3.8-3.8v-.2l3.8-3.8 4.5 2.6c1.3.7 1.3 2 0 2.7l-4.5 2.5z" fill="#FFC107"/>
-                            <path d="M11.9 15.5l-8.2 8.2c.3.3.8.3 1.3 0l9.3-5.3-2.4-2.9z" fill="#F44336"/>
-                            <path d="M11.9 8.5L14.3 5.6 5 1.3C4.5 0.9 4 1.0 3.7 1.3l8.2 7.2z" fill="#4CAF50"/>
-                        </svg>
-                    </div>
-                    <div className="flex flex-col items-start leading-none text-left">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">GET IT ON</span>
-                        <span className="text-lg font-bold">Google Play</span>
-                    </div>
+                    <img
+                        src="/badges/google-play-badge.png"
+                        alt="Get it on Google Play"
+                        className="h-[52px]"
+                    />
                 </button>
             </div>
             
@@ -773,35 +767,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             </h2>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
-                {/* Apple App Store Button */}
-                <button 
-                    onClick={onGetStarted} 
-                    className="bg-slate-900 text-white px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-3 hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                {/* Apple App Store Badge */}
+                <button
+                    onClick={() => setShowComingSoon(true)}
+                    className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
-                    <Apple size={28} fill="currentColor" />
-                    <div className="flex flex-col items-start leading-none text-left">
-                        <span className="text-[10px] font-medium text-slate-400">Download on the</span>
-                        <span className="text-lg font-bold">App Store</span>
-                    </div>
+                    <img
+                        src="/badges/app-store-badge.svg"
+                        alt="Download on the App Store"
+                        className="h-[52px]"
+                    />
                 </button>
 
-                {/* Google Play Store Button */}
-                <button 
-                    onClick={onGetStarted} 
-                    className="bg-white text-slate-900 px-6 py-3 rounded-2xl border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                {/* Google Play Badge */}
+                <button
+                    onClick={() => setShowComingSoon(true)}
+                    className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
-                    <div className="w-7 h-7">
-                        <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                            <path d="M3.6 3.6c-.2.2-.4.6-.4 1.1v14.6c0 .5.2.9.4 1.1l.1.1 8.2-8.2v-.2L3.7 3.5l-.1.1z" fill="#2196F3"/>
-                            <path d="M15.7 15.3l-3.8-3.8v-.2l3.8-3.8 4.5 2.6c1.3.7 1.3 2 0 2.7l-4.5 2.5z" fill="#FFC107"/>
-                            <path d="M11.9 15.5l-8.2 8.2c.3.3.8.3 1.3 0l9.3-5.3-2.4-2.9z" fill="#F44336"/>
-                            <path d="M11.9 8.5L14.3 5.6 5 1.3C4.5 0.9 4 1.0 3.7 1.3l8.2 7.2z" fill="#4CAF50"/>
-                        </svg>
-                    </div>
-                    <div className="flex flex-col items-start leading-none text-left">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">GET IT ON</span>
-                        <span className="text-lg font-bold">Google Play</span>
-                    </div>
+                    <img
+                        src="/badges/google-play-badge.png"
+                        alt="Get it on Google Play"
+                        className="h-[52px]"
+                    />
                 </button>
             </div>
 
@@ -821,6 +808,33 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             </div>
          </div>
       </footer>
+
+      {/* Coming Soon Modal */}
+      {showComingSoon && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100]"
+          onClick={() => setShowComingSoon(false)}
+        >
+          <div
+            className="bg-white rounded-3xl p-8 max-w-sm mx-4 text-center shadow-2xl animate-fade-in-up"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <Zap size={32} className="text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-3">Coming Soon!</h3>
+            <p className="text-slate-500 mb-8 leading-relaxed">
+              Robeen will be available on the App Store and Google Play very soon. Stay tuned!
+            </p>
+            <button
+              onClick={() => setShowComingSoon(false)}
+              className="bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
