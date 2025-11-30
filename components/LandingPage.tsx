@@ -537,11 +537,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                     <img
                         src="/badges/google-play-badge.png"
                         alt="Get it on Google Play"
-                        className="h-[52px]"
+                        className="h-[70px]"
                     />
                 </button>
             </div>
-            
+
             {/* Community Avatar Pile (Subtle) */}
             <div className="mt-10 flex items-center justify-center gap-3 animate-fade-in-up delay-300 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
                  <div className="flex -space-x-2">
@@ -787,7 +787,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                     <img
                         src="/badges/google-play-badge.png"
                         alt="Get it on Google Play"
-                        className="h-[52px]"
+                        className="h-[70px]"
                     />
                 </button>
             </div>
