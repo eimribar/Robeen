@@ -8,12 +8,14 @@ import AuthScreen from './components/AuthScreen';
 import ProfileScreen from './components/ProfileScreen';
 import OnboardingFlow from './components/OnboardingFlow';
 import LandingPage from './components/LandingPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 import { analyzeCryVideo, getQuickTips, preloadTTS } from './services/geminiService';
 import { CryAnalysisResult, HistoryItem, UserProfileData } from './types';
 
 const App: React.FC = () => {
   // --- Navigation State ---
-  const [viewState, setViewState] = useState<'landing' | 'auth' | 'app'>('landing');
+  const [viewState, setViewState] = useState<'landing' | 'auth' | 'app' | 'privacy' | 'terms'>('landing');
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   
   // --- App State ---
@@ -44,7 +46,17 @@ const App: React.FC = () => {
         setAuthMode('signin');
         setViewState('auth');
       }}
+      onNavigate={(page) => setViewState(page as 'privacy' | 'terms')}
     />;
+  }
+
+  // --- 1.5 LEGAL PAGES ---
+  if (viewState === 'privacy') {
+    return <PrivacyPolicy onBack={() => setViewState('landing')} />;
+  }
+
+  if (viewState === 'terms') {
+    return <TermsOfService onBack={() => setViewState('landing')} />;
   }
 
   // --- 2. AUTHENTICATION FLOW ---

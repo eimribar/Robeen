@@ -11,6 +11,7 @@ import RobeenAvatar from './RobeenAvatar';
 interface LandingPageProps {
   onGetStarted: () => void;
   onLogin: () => void;
+  onNavigate: (page: string) => void;
 }
 
 // --- LIVE PRODUCT SIMULATIONS (Using Real Component Code) ---
@@ -396,7 +397,7 @@ const DemoInsights = () => (
 );
 
 
-const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -772,12 +773,36 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin }) => {
             </h2>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
-               <button onClick={onGetStarted} className="bg-indigo-600 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-indigo-700 transition-all shadow-2xl hover:shadow-indigo-500/40 active:scale-95 flex items-center gap-3">
-                  <Apple size={28} fill="currentColor" /> Download for iOS
-               </button>
-               <button onClick={onGetStarted} className="bg-slate-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-slate-800 transition-all shadow-2xl hover:shadow-slate-500/40 active:scale-95 flex items-center gap-3">
-                  <Smartphone size={28} /> Get on Android
-               </button>
+                {/* Apple App Store Button */}
+                <button 
+                    onClick={onGetStarted} 
+                    className="bg-slate-900 text-white px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-3 hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                >
+                    <Apple size={28} fill="currentColor" />
+                    <div className="flex flex-col items-start leading-none text-left">
+                        <span className="text-[10px] font-medium text-slate-400">Download on the</span>
+                        <span className="text-lg font-bold">App Store</span>
+                    </div>
+                </button>
+
+                {/* Google Play Store Button */}
+                <button 
+                    onClick={onGetStarted} 
+                    className="bg-white text-slate-900 px-6 py-3 rounded-2xl border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 min-w-[200px] justify-center"
+                >
+                    <div className="w-7 h-7">
+                        <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+                            <path d="M3.6 3.6c-.2.2-.4.6-.4 1.1v14.6c0 .5.2.9.4 1.1l.1.1 8.2-8.2v-.2L3.7 3.5l-.1.1z" fill="#2196F3"/>
+                            <path d="M15.7 15.3l-3.8-3.8v-.2l3.8-3.8 4.5 2.6c1.3.7 1.3 2 0 2.7l-4.5 2.5z" fill="#FFC107"/>
+                            <path d="M11.9 15.5l-8.2 8.2c.3.3.8.3 1.3 0l9.3-5.3-2.4-2.9z" fill="#F44336"/>
+                            <path d="M11.9 8.5L14.3 5.6 5 1.3C4.5 0.9 4 1.0 3.7 1.3l8.2 7.2z" fill="#4CAF50"/>
+                        </svg>
+                    </div>
+                    <div className="flex flex-col items-start leading-none text-left">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase">GET IT ON</span>
+                        <span className="text-lg font-bold">Google Play</span>
+                    </div>
+                </button>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-400 font-medium pt-12 border-t border-slate-100">
@@ -785,6 +810,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin }) => {
                   <RobeenAvatar size="sm" />
                   <span className="font-bold text-slate-900 text-lg">Robeen</span>
                </div>
+               
+               {/* Footer Links */}
+               <div className="flex items-center gap-6">
+                  <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-600 transition-colors">Privacy Policy</button>
+                  <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 transition-colors">Terms & Conditions</button>
+               </div>
+               
                <p>© {new Date().getFullYear()} Robeen AI.</p>
             </div>
          </div>
