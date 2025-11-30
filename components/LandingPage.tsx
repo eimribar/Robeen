@@ -507,9 +507,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                  AI Parenting Assistant 2.0
              </div>
 
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-slate-900 mb-6 leading-[1.1] animate-fade-in-up">
-                Know why your baby is crying. <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500 font-serif italic pb-2 pr-4">Instantly.</span>
+            <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-slate-900 mb-6 leading-[1.05] animate-fade-in-up">
+                Why is my <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500 font-serif italic pb-2 pr-4">baby crying?</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium animate-fade-in-up delay-100">
