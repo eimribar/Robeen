@@ -7,10 +7,16 @@ import RobeenAvatar from './components/RobeenAvatar';
 import AuthScreen from './components/AuthScreen';
 import ProfileScreen from './components/ProfileScreen';
 import OnboardingFlow from './components/OnboardingFlow';
+import LandingPage from './components/LandingPage';
 import { analyzeCryVideo, getQuickTips, preloadTTS } from './services/geminiService';
 import { CryAnalysisResult, HistoryItem, UserProfileData } from './types';
 
 const App: React.FC = () => {
+  // --- Navigation State ---
+  const [viewState, setViewState] = useState<'landing' | 'auth' | 'app'>('landing');
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  
+  // --- App State ---
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [isOnboarded, setIsOnboarded] = useState(false);
@@ -27,15 +33,34 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState<string>('');
 
-  // --- Authentication Flow ---
-  if (!isAuthenticated) {
-    return <AuthScreen onAuthenticated={(email) => {
-      setUserEmail(email);
-      setIsAuthenticated(true);
-    }} />;
+  // --- 1. LANDING PAGE FLOW ---
+  if (viewState === 'landing' && !isAuthenticated) {
+    return <LandingPage 
+      onGetStarted={() => {
+        setAuthMode('signup');
+        setViewState('auth');
+      }}
+      onLogin={() => {
+        setAuthMode('signin');
+        setViewState('auth');
+      }}
+    />;
   }
 
-  // --- Onboarding Flow ---
+  // --- 2. AUTHENTICATION FLOW ---
+  if (viewState === 'auth' && !isAuthenticated) {
+    return <AuthScreen 
+      initialMode={authMode}
+      onBack={() => setViewState('landing')}
+      onAuthenticated={(email) => {
+        setUserEmail(email);
+        setIsAuthenticated(true);
+        setViewState('app');
+      }} 
+    />;
+  }
+
+  // --- 3. ONBOARDING FLOW ---
   if (isAuthenticated && !isOnboarded) {
     return <OnboardingFlow onComplete={(data) => {
       setUserProfile(data);
@@ -198,6 +223,7 @@ const App: React.FC = () => {
               setIsAuthenticated(false);
               setIsOnboarded(false);
               setHistory([]);
+              setViewState('landing');
             }} 
             initialProfile={userProfile}
             userEmail={userEmail}

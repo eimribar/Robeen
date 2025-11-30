@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Lock, ArrowRight, Loader2, Apple } from 'lucide-react';
 import RobeenAvatar from './RobeenAvatar';
 
 interface AuthScreenProps {
   onAuthenticated: (email: string) => void;
+  initialMode?: 'signin' | 'signup';
+  onBack?: () => void;
 }
 
-const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated, initialMode = 'signin', onBack }) => {
+  const [mode, setMode] = useState<'signin' | 'signup'>(initialMode);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Allow updating mode if prop changes (though usually component remounts)
+  useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +55,15 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
          <div className="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] bg-indigo-200/30 rounded-full blur-[100px]" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] bg-pink-200/30 rounded-full blur-[100px]" />
       </div>
+
+      {onBack && (
+        <button 
+          onClick={onBack}
+          className="absolute top-6 left-6 z-20 text-slate-400 hover:text-slate-600 font-bold text-sm"
+        >
+          ← Back
+        </button>
+      )}
 
       <div className="w-full max-w-md z-10 flex flex-col items-center animate-fade-in-up">
         
