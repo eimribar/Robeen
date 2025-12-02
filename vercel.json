@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/support",
+      "destination": "https://api.robeen.ai/support",
+      "permanent": false
+    }
+  ]
+}
