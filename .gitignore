@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Build outputs with embedded secrets
+dist/
+ios/App/App/public/
+packages/mobile/ios/App/App/public/
+packages/mobile/android/app/src/main/assets/public/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
