@@ -1,0 +1,12 @@
+{
+	"appId": "com.robeen.app",
+	"appName": "Robeen",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https"
+	},
+	"packageClassList": [
+		"AppPlugin",
+		"PreferencesPlugin"
+	]
+}
