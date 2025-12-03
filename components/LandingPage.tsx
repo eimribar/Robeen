@@ -401,6 +401,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsVideoPlaying(true);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -467,6 +481,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
              <a href="#features" className="hover:text-indigo-600 transition-colors">Features</a>
              <a href="#reviews" className="hover:text-indigo-600 transition-colors">Stories</a>
+             <button onClick={() => onNavigate('blog')} className="hover:text-indigo-600 transition-colors">Blog</button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -487,6 +502,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 shadow-xl md:hidden">
                 <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Features</a>
                 <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Stories</a>
+                <button onClick={() => { setMobileMenuOpen(false); onNavigate('blog'); }} className="text-lg font-medium text-slate-600 text-left">Blog</button>
                 <button onClick={() => { setMobileMenuOpen(false); setShowComingSoon(true); }} className="text-lg font-medium text-slate-600 text-left">Download the App</button>
             </div>
         )}
@@ -555,6 +571,53 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             </div>
 
         </div>
+      </section>
+
+      {/* --- PRODUCT VIDEO --- */}
+      <section className="py-24 bg-white relative">
+         <div className="max-w-6xl mx-auto px-6">
+            <div
+               className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-indigo-200 border border-slate-200 aspect-video group cursor-pointer"
+               onClick={handleVideoClick}
+            >
+               {/* Video Element */}
+               <video
+                  ref={videoRef}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src="/videos/robeen-intro.mp4"
+                  playsInline
+                  onEnded={() => setIsVideoPlaying(false)}
+               />
+
+               {/* Play/Pause Overlay */}
+               <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}>
+                  {/* Dark gradient overlay when paused */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'}`} />
+
+                  <div className="relative z-10">
+                     <div className={`absolute inset-0 bg-white/30 rounded-full animate-ping opacity-20 ${isVideoPlaying ? 'hidden' : ''}`} />
+                     <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:bg-white/20">
+                        {isVideoPlaying ? (
+                           <div className="flex gap-1.5">
+                              <div className="w-3 h-10 bg-white rounded-sm" />
+                              <div className="w-3 h-10 bg-white rounded-sm" />
+                           </div>
+                        ) : (
+                           <Play size={40} className="text-white fill-white ml-2" />
+                        )}
+                     </div>
+                  </div>
+               </div>
+
+               {/* Label - only show when paused */}
+               <div className={`absolute bottom-8 left-8 right-8 flex justify-between items-end text-white/80 transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'}`}>
+                  <div>
+                     <p className="text-sm font-bold uppercase tracking-widest mb-1 text-indigo-300">Intro</p>
+                     <h3 className="text-2xl font-medium">Meet Robeen, your parenting assistant</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
       </section>
 
       {/* --- FEATURE 1: ANALYZER (Merged Visually) --- */}
@@ -800,6 +863,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                
                {/* Footer Links */}
                <div className="flex items-center gap-6">
+                  <button onClick={() => onNavigate('blog')} className="hover:text-indigo-600 transition-colors">Blog</button>
                   <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-600 transition-colors">Privacy Policy</button>
                   <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 transition-colors">Terms & Conditions</button>
                </div>

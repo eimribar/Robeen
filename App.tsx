@@ -10,13 +10,16 @@ import OnboardingFlow from './components/OnboardingFlow';
 import LandingPage from './components/LandingPage';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';
 import { analyzeCryVideo, getQuickTips, preloadTTS } from './services/geminiService';
 import { CryAnalysisResult, HistoryItem, UserProfileData } from './types';
 
 const App: React.FC = () => {
   // --- Navigation State ---
-  const [viewState, setViewState] = useState<'landing' | 'auth' | 'app' | 'privacy' | 'terms'>('landing');
+  const [viewState, setViewState] = useState<'landing' | 'auth' | 'app' | 'privacy' | 'terms' | 'blog' | 'blogpost'>('landing');
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [selectedPostId, setSelectedPostId] = useState<string>('');
   
   // --- App State ---
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,6 +60,32 @@ const App: React.FC = () => {
 
   if (viewState === 'terms') {
     return <TermsOfService onBack={() => setViewState('landing')} />;
+  }
+
+  // --- 1.6 BLOG PAGES ---
+  if (viewState === 'blog') {
+    return <Blog
+      onBack={() => setViewState('landing')}
+      onNavigate={(page) => setViewState(page as 'privacy' | 'terms')}
+      onPostClick={(id) => {
+        setSelectedPostId(id);
+        setViewState('blogpost');
+      }}
+    />;
+  }
+
+  if (viewState === 'blogpost') {
+    return <BlogPost
+      postId={selectedPostId}
+      onBack={() => setViewState('blog')}
+      onNavigate={(page) => {
+        if (page === 'app') {
+          setViewState('auth');
+        } else {
+          setViewState(page as 'privacy' | 'terms');
+        }
+      }}
+    />;
   }
 
   // --- 2. AUTHENTICATION FLOW ---
