@@ -2,6 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3C0T7GZRN0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3C0T7GZRN0');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- Primary Meta Tags -->
@@ -47,7 +56,14 @@
     <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID" />
     <meta name="google-play-app" content="app-id=com.robeen.app" />
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    <link rel="preconnect" href="https://i.pravatar.cc" />
+    <link rel="dns-prefetch" href="https://aistudiocdn.com" />
+
+    <!-- Structured Data: MobileApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -70,6 +86,194 @@
         "@type": "Organization",
         "name": "Robeen",
         "url": "https://robeen.app"
+      }
+    }
+    </script>
+
+    <!-- Structured Data: WebApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Robeen - AI Baby Cry Analyzer",
+      "url": "https://robeen.app",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AI-powered baby cry analysis",
+        "Instant cry translation to needs",
+        "Detects hunger, tiredness, pain, and gas",
+        "Voice-activated parenting coach",
+        "Pattern tracking over time",
+        "Personalized soothing recommendations"
+      ],
+      "screenshot": "https://robeen.app/og-image.png"
+    }
+    </script>
+
+    <!-- Structured Data: HowTo -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use Robeen Baby Cry Analyzer",
+      "description": "Learn how to use the Robeen app to understand why your baby is crying in seconds.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Open the Robeen app",
+          "text": "Launch the Robeen app on your smartphone or visit robeen.app on your browser."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Record your baby's cry",
+          "text": "Tap the Record button and capture 10 seconds of your baby crying. You can also upload a video from your gallery."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Get instant AI analysis",
+          "text": "Robeen's AI analyzes facial expressions, body language, and cry acoustics to identify the cause: hunger, tiredness, gas, or pain."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Follow the soothing steps",
+          "text": "Receive personalized, actionable steps to soothe your baby based on the detected need."
+        }
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How accurate is Robeen's baby cry analysis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen achieves 95% accuracy in identifying baby needs including hunger, tiredness, gas, and pain. Our AI analyzes facial expressions, body language, and cry acoustics for comprehensive detection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of baby cries can Robeen detect?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen can detect and differentiate between hunger cries, tired cries, pain cries, gas/colic cries, overstimulation, and discomfort. Each cry type has distinct acoustic patterns and accompanying body language."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Robeen work for newborns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Robeen is designed for babies from birth to 12 months. The AI is trained on thousands of cry samples across all age groups and adapts its analysis based on your baby's age."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Robeen baby cry analyzer free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen offers a free tier with unlimited cry analysis. Premium features like detailed pattern tracking, voice coaching, and personalized insights are available with a subscription."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI baby cry detection work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen uses advanced machine learning to analyze three key signals: cry acoustics (pitch, rhythm, intensity), facial expressions (mouth shape, eye squinting), and body language (arching, fist clenching, leg movements). These combined signals are matched against patterns to identify the underlying need."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a hungry cry and a tired cry?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hungry cries typically start slow and build in intensity, with rooting reflexes and hand-to-mouth movements. Tired cries are often whiny and accompanied by eye rubbing, yawning, and jerky movements. Robeen can instantly distinguish between these patterns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Robeen detect if my baby is in pain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, pain cries have distinct characteristics: they're sudden, high-pitched, and intense with facial grimacing. Robeen can identify pain indicators and recommends seeking medical attention when appropriate. However, Robeen is not a medical device and does not replace professional medical advice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my baby's data private and secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Robeen takes privacy seriously. Videos are processed securely and are not stored permanently. We never sell or share your data. All analysis happens with enterprise-grade encryption."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Robeen work offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen requires an internet connection for AI analysis as the processing happens on secure cloud servers. This ensures you always get the most accurate and up-to-date analysis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does the cry analysis take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen analyzes your baby's cry in just 5-10 seconds. You'll receive instant results with the detected cause and actionable soothing steps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes Robeen different from other baby cry apps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robeen combines cry acoustics with visual analysis of facial expressions and body language for superior accuracy. Plus, our voice-activated coaching lets you get hands-free advice while soothing your baby."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Robeen on the web without downloading an app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Robeen is available as a web app at robeen.app. You can use it directly in your browser on any device. Native iOS and Android apps are also available for the best experience."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Robeen",
+      "url": "https://robeen.app",
+      "logo": "https://robeen.app/favicon.svg",
+      "description": "AI-powered baby cry analyzer helping parents understand their baby's needs instantly.",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://robeen.app/support"
       }
     }
     </script>
