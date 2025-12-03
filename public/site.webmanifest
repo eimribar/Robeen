@@ -1,0 +1,21 @@
+{
+  "name": "Robeen - AI Baby Cry Analyzer",
+  "short_name": "Robeen",
+  "description": "AI-powered baby cry analyzer that helps parents understand their baby's needs instantly",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

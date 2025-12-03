@@ -1,0 +1,8 @@
+# Robeen - Baby Cry Analyzer
+# https://robeen.app
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://robeen.app/sitemap.xml
