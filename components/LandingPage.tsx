@@ -534,8 +534,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full animate-fade-in-up delay-200">
                 {/* Apple App Store Badge */}
-                <button
-                    onClick={() => setShowComingSoon(true)}
+                <a
+                    href="https://apps.apple.com/il/app/robeen/id6755863731"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
                     <img
@@ -543,7 +545,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                         alt="Download on the App Store"
                         className="h-[52px]"
                     />
-                </button>
+                </a>
 
                 {/* Google Play Badge */}
                 <button
@@ -831,8 +833,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
                 {/* Apple App Store Badge */}
-                <button
-                    onClick={() => setShowComingSoon(true)}
+                <a
+                    href="https://apps.apple.com/il/app/robeen/id6755863731"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity focus:outline-none hover:-translate-y-1 active:scale-95 transition-transform"
                 >
                     <img
@@ -840,7 +844,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                         alt="Download on the App Store"
                         className="h-[52px]"
                     />
-                </button>
+                </a>
 
                 {/* Google Play Badge */}
                 <button
