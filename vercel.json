@@ -1,4 +1,14 @@
 {
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "https://robeen-blog.vercel.app/blog"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://robeen-blog.vercel.app/blog/:path*"
+    }
+  ],
   "redirects": [
     {
       "source": "/support",
