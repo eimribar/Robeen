@@ -404,17 +404,26 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
-  const handleVideoClick = () => {
+  const handleVideoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (videoRef.current) {
       if (isVideoPlaying) {
         videoRef.current.pause();
         setIsVideoPlaying(false);
       } else {
-        videoRef.current.play();
+        videoRef.current.play().catch(() => {
+          // Autoplay may be blocked, show play button
+          setIsVideoPlaying(false);
+        });
         setIsVideoPlaying(true);
       }
     }
   };
+
+  // Handle video play/pause events for proper state sync
+  const handleVideoPlay = () => setIsVideoPlaying(true);
+  const handleVideoPause = () => setIsVideoPlaying(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -587,26 +596,26 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                   ref={videoRef}
                   className="absolute inset-0 w-full h-full object-cover"
                   src="/videos/robeen-intro.mp4"
+                  poster="/videos/robeen-intro-poster.jpg"
+                  preload="metadata"
                   playsInline
+                  webkit-playsinline="true"
+                  onPlay={handleVideoPlay}
+                  onPause={handleVideoPause}
                   onEnded={() => setIsVideoPlaying(false)}
                />
 
-               {/* Play/Pause Overlay */}
-               <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}>
+               {/* Play/Pause Overlay - hidden when playing on mobile, shown on hover for desktop */}
+               <div
+                  className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none ${isVideoPlaying ? 'opacity-0' : 'opacity-100'}`}
+               >
                   {/* Dark gradient overlay when paused */}
                   <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'}`} />
 
-                  <div className="relative z-10">
+                  <div className="relative z-10 pointer-events-auto">
                      <div className={`absolute inset-0 bg-white/30 rounded-full animate-ping opacity-20 ${isVideoPlaying ? 'hidden' : ''}`} />
-                     <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:bg-white/20">
-                        {isVideoPlaying ? (
-                           <div className="flex gap-1.5">
-                              <div className="w-3 h-10 bg-white rounded-sm" />
-                              <div className="w-3 h-10 bg-white rounded-sm" />
-                           </div>
-                        ) : (
-                           <Play size={40} className="text-white fill-white ml-2" />
-                        )}
+                     <div className="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-2xl transition-transform duration-500 active:scale-95 md:group-hover:scale-110 md:group-hover:bg-white/20">
+                        <Play size={36} className="text-white fill-white ml-1.5 md:ml-2" />
                      </div>
                   </div>
                </div>
