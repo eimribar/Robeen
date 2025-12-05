@@ -41,7 +41,7 @@ export default function BlogPageClient({ featuredPost, posts }: BlogPageClientPr
       {/* --- HEADER --- */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white/80 backdrop-blur-xl border-slate-200 py-3">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/blog" className="flex items-center gap-2 cursor-pointer">
+          <Link href="/" className="flex items-center gap-2 cursor-pointer">
             <RobeenAvatar size="sm" emotion="happy" />
             <span className="font-bold text-lg tracking-tight">Robeen</span>
             <span className="hidden md:inline-block mx-2 text-slate-300">|</span>
@@ -77,7 +77,7 @@ export default function BlogPageClient({ featuredPost, posts }: BlogPageClientPr
 
           {/* Featured Article Card */}
           {featuredPost && (
-            <Link href={`/blog/${featuredPost.slug}`}>
+            <Link href={`/${featuredPost.slug}`}>
               <article className="group relative w-full rounded-[2.5rem] overflow-hidden shadow-2xl shadow-indigo-100 h-[500px] md:h-[600px] cursor-pointer animate-fade-in-up delay-300">
                 <Image
                   src={featuredPost.featured_image}
@@ -134,7 +134,7 @@ export default function BlogPageClient({ featuredPost, posts }: BlogPageClientPr
         <section className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`}>
+              <Link key={post.id} href={`/${post.slug}`}>
                 <article className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-xl hover:shadow-indigo-100 hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full">
                   {/* Image */}
                   <div className="relative h-64 overflow-hidden">
