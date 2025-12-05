@@ -490,7 +490,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
              <a href="#features" className="hover:text-indigo-600 transition-colors">Features</a>
              <a href="#reviews" className="hover:text-indigo-600 transition-colors">Stories</a>
-             <button onClick={() => onNavigate('blog')} className="hover:text-indigo-600 transition-colors">Blog</button>
+             <a href="/blog" className="hover:text-indigo-600 transition-colors">Blog</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -511,7 +511,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 shadow-xl md:hidden">
                 <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Features</a>
                 <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Stories</a>
-                <button onClick={() => { setMobileMenuOpen(false); onNavigate('blog'); }} className="text-lg font-medium text-slate-600 text-left">Blog</button>
+                <a href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-slate-600">Blog</a>
                 <button onClick={() => { setMobileMenuOpen(false); setShowComingSoon(true); }} className="text-lg font-medium text-slate-600 text-left">Download the App</button>
             </div>
         )}
@@ -876,7 +876,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin, onNavi
                
                {/* Footer Links */}
                <div className="flex items-center gap-6">
-                  <button onClick={() => onNavigate('blog')} className="hover:text-indigo-600 transition-colors">Blog</button>
+                  <a href="/blog" className="hover:text-indigo-600 transition-colors">Blog</a>
                   <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-600 transition-colors">Privacy Policy</button>
                   <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 transition-colors">Terms & Conditions</button>
                </div>
