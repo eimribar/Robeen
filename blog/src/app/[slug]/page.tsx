@@ -61,8 +61,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
-// JSON-LD Structured Data
-function generateStructuredData(post: any, siteUrl: string) {
+// JSON-LD Structured Data - Article
+function generateArticleSchema(post: any, siteUrl: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -91,6 +91,83 @@ function generateStructuredData(post: any, siteUrl: string) {
     articleSection: post.category,
     keywords: post.tags?.join(', '),
   };
+}
+
+// JSON-LD Structured Data - FAQPage (for posts with FAQ blocks)
+function generateFAQSchema(post: any) {
+  const faqBlocks = post.content_blocks?.filter((b: any) => b.type === 'faq' && b.faqs);
+  if (!faqBlocks || faqBlocks.length === 0) return null;
+
+  const allFaqs = faqBlocks.flatMap((block: any) => block.faqs || []);
+  if (allFaqs.length === 0) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allFaqs.map((faq: any) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
+// JSON-LD Structured Data - HowTo (for posts with step_by_step blocks)
+function generateHowToSchema(post: any, siteUrl: string) {
+  const stepBlocks = post.content_blocks?.filter((b: any) => b.type === 'step_by_step' && b.steps);
+  if (!stepBlocks || stepBlocks.length === 0) return null;
+
+  // Use the first step_by_step block for HowTo schema
+  const block = stepBlocks[0];
+  const steps = block.steps || [];
+  if (steps.length === 0) return null;
+
+  // Find a relevant h2 heading before the step block to use as the name
+  const blockIndex = post.content_blocks.indexOf(block);
+  let howToName = post.title;
+  for (let i = blockIndex - 1; i >= 0; i--) {
+    if (post.content_blocks[i].type === 'h2') {
+      howToName = post.content_blocks[i].text;
+      break;
+    }
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: howToName,
+    description: post.excerpt,
+    image: post.featured_image,
+    step: steps.map((step: any, index: number) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.title,
+      text: step.description,
+      ...(step.image && { image: step.image }),
+      ...(step.duration && {
+        itemListElement: {
+          '@type': 'HowToDirection',
+          text: `Duration: ${step.duration}`,
+        },
+      }),
+    })),
+  };
+}
+
+// Combine all structured data
+function generateStructuredData(post: any, siteUrl: string) {
+  const schemas: any[] = [generateArticleSchema(post, siteUrl)];
+
+  const faqSchema = generateFAQSchema(post);
+  if (faqSchema) schemas.push(faqSchema);
+
+  const howToSchema = generateHowToSchema(post, siteUrl);
+  if (howToSchema) schemas.push(howToSchema);
+
+  return schemas;
 }
 
 // Server wrapper to fetch data

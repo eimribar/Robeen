@@ -26,10 +26,78 @@ export interface BlogPost {
 }
 
 export interface ContentBlock {
-  type: 'h2' | 'p' | 'quote' | 'list';
+  type:
+    // Existing
+    | 'h2' | 'h3' | 'p' | 'quote' | 'list'
+    // Visual
+    | 'image' | 'comparison_table' | 'timeline'
+    // Structure
+    | 'callout' | 'expert_quote' | 'stat_highlight' | 'step_by_step'
+    | 'pros_cons' | 'tldr' | 'faq';
+
+  // Common fields
   text?: string;
   id?: string;
   items?: string[];
+
+  // Image fields
+  src?: string;
+  alt?: string;
+  caption?: string;
+
+  // Expert quote fields
+  expert?: {
+    name: string;
+    title: string;
+    organization: string;
+    image?: string;
+  };
+
+  // Stat fields
+  stat?: {
+    value: string;
+    label: string;
+    source: string;
+    sourceUrl?: string;
+  };
+
+  // Table fields (for comparison_table)
+  table?: {
+    title?: string;
+    headers: string[];
+    rows: string[][];
+  };
+
+  // FAQ fields (always visible, not accordion)
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
+
+  // Callout fields
+  variant?: 'tip' | 'warning' | 'info' | 'success';
+
+  // Step fields (for step_by_step)
+  steps?: Array<{
+    title: string;
+    description: string;
+    image?: string;
+    duration?: string;
+  }>;
+
+  // Pros/Cons fields
+  pros?: string[];
+  cons?: string[];
+
+  // Timeline fields
+  timelineItems?: Array<{
+    label: string;
+    title: string;
+    description: string;
+  }>;
+
+  // TLDR fields
+  tldrItems?: string[];
 }
 
 export interface BlogTopic {

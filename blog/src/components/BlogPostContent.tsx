@@ -7,6 +7,18 @@ import { ArrowLeft, Clock, Calendar, Share2, Twitter, Facebook, Linkedin, Link a
 import RobeenAvatar from '@/components/RobeenAvatar';
 import { formatDate, formatReadTime } from '@/lib/posts';
 import type { BlogPost, ContentBlock } from '@/lib/types';
+import {
+  ImageBlock,
+  ExpertQuote,
+  StatHighlight,
+  Callout,
+  TLDR,
+  ComparisonTable,
+  ProsCons,
+  StepByStep,
+  Timeline,
+  FAQ,
+} from '@/components/blocks';
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -216,8 +228,12 @@ export default function BlogPostContent({ post, relatedPosts }: BlogPostContentP
               {/* Rich Text Body */}
               <div className="prose prose-slate prose-lg md:prose-xl max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-img:rounded-3xl prose-img:shadow-xl">
                 {post.content_blocks.map((block: ContentBlock, idx: number) => {
+                  // Existing block types
                   if (block.type === 'h2') {
                     return <h2 key={idx} id={block.id} className="scroll-mt-32">{block.text}</h2>;
+                  }
+                  if (block.type === 'h3') {
+                    return <h3 key={idx} id={block.id} className="scroll-mt-32">{block.text}</h3>;
                   }
                   if (block.type === 'p') {
                     return <p key={idx}>{block.text}</p>;
@@ -238,6 +254,98 @@ export default function BlogPostContent({ post, relatedPosts }: BlogPostContentP
                       </ul>
                     );
                   }
+
+                  // New visual block types
+                  if (block.type === 'image' && block.src) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <ImageBlock
+                          src={block.src}
+                          alt={block.alt || ''}
+                          caption={block.caption}
+                        />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'expert_quote' && block.expert) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <ExpertQuote
+                          text={block.text || ''}
+                          expert={block.expert}
+                        />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'stat_highlight' && block.stat) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <StatHighlight stat={block.stat} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'callout') {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <Callout
+                          text={block.text || ''}
+                          variant={block.variant}
+                        />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'tldr' && block.tldrItems) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <TLDR items={block.tldrItems} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'comparison_table' && block.table) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <ComparisonTable table={block.table} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'pros_cons' && block.pros && block.cons) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <ProsCons pros={block.pros} cons={block.cons} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'step_by_step' && block.steps) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <StepByStep steps={block.steps} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'timeline' && block.timelineItems) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <Timeline items={block.timelineItems} />
+                      </div>
+                    );
+                  }
+
+                  if (block.type === 'faq' && block.faqs) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <FAQ faqs={block.faqs} />
+                      </div>
+                    );
+                  }
+
                   return null;
                 })}
               </div>
