@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run build:blog",
+    "build:blog": "cd blog && npm install && npm run build && cp -r out ../dist/blog",
     "preview": "vite preview"
   },
   "dependencies": {
