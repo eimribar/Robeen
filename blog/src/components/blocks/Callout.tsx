@@ -44,14 +44,18 @@ export function Callout({ text, variant = 'tip' }: CalloutProps) {
   const styles = variantStyles[variant];
 
   return (
-    <div className={`my-8 md:my-10 rounded-2xl ${styles.bg} border ${styles.border} p-6 md:p-8`}>
-      <div className="flex items-start gap-4">
-        <span className="text-2xl flex-shrink-0">{styles.icon}</span>
+    <div className={`my-8 md:my-10 rounded-xl ${styles.bg} border ${styles.border} p-5 md:p-6 shadow-sm overflow-hidden relative`}>
+      <div className="flex items-start gap-4 relative z-10">
+        <div className="flex-shrink-0 mt-0.5">
+          <span className="text-2xl" role="img" aria-label={styles.title}>
+            {styles.icon}
+          </span>
+        </div>
         <div>
-          <p className={`font-semibold ${styles.titleColor} mb-2`}>
+          <h5 className={`font-bold ${styles.titleColor} text-base mb-1.5`}>
             {styles.title}
-          </p>
-          <p className={`${styles.textColor} leading-relaxed`}>
+          </h5>
+          <p className={`${styles.textColor} text-base leading-relaxed`}>
             {text}
           </p>
         </div>
