@@ -8,3 +8,6 @@ export { ProsCons } from './ProsCons';
 export { StepByStep } from './StepByStep';
 export { Timeline } from './Timeline';
 export { FAQ } from './FAQ';
+// NEW: Product & Linking components
+export { RobeenFeature } from './RobeenFeature';
+export { InternalLink } from './InternalLink';

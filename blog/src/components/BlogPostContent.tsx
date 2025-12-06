@@ -18,7 +18,10 @@ import {
   StepByStep,
   Timeline,
   FAQ,
+  RobeenFeature,
+  InternalLink,
 } from '@/components/blocks';
+import { ROBEEN_FEATURES, type FunnelStage } from '@/lib/types';
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -346,24 +349,148 @@ export default function BlogPostContent({ post, relatedPosts }: BlogPostContentP
                     );
                   }
 
+                  // NEW: Robeen Feature callout block
+                  if (block.type === 'robeen_feature' && block.feature) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <RobeenFeature
+                          feature={block.feature}
+                          heading={block.heading}
+                          description={block.description}
+                          cta={block.cta}
+                          ctaUrl={block.ctaUrl}
+                        />
+                      </div>
+                    );
+                  }
+
+                  // NEW: Internal link block
+                  if (block.type === 'internal_link' && block.href) {
+                    return (
+                      <div key={idx} className="not-prose">
+                        <InternalLink
+                          text={block.text || 'Read more'}
+                          href={block.href}
+                          context={block.context}
+                        />
+                      </div>
+                    );
+                  }
+
                   return null;
                 })}
               </div>
 
-              {/* Article Footer */}
+              {/* Article Footer - Funnel-Specific CTA */}
               <div className="mt-16 pt-12 border-t border-slate-100">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-50 p-8 rounded-3xl border border-slate-100">
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-lg mb-2">Still have questions?</h4>
-                    <p className="text-slate-500 text-sm">Our AI assistant can read this article and answer specific questions about {post.category.toLowerCase()}.</p>
+                {/* TOFU: Soft, value-first CTA */}
+                {(post.funnel_stage === 'tofu' || !post.funnel_stage) && (
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-indigo-50 to-pink-50 p-8 rounded-3xl border border-indigo-100">
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-lg mb-2">Want more parenting insights?</h4>
+                      <p className="text-slate-600 text-sm">
+                        Get science-backed tips on {post.category.toLowerCase()} delivered to your inbox.
+                        Plus, discover how Robeen can help track your baby&apos;s patterns.
+                      </p>
+                    </div>
+                    <a
+                      href="https://robeen.ai/download?utm_source=blog&utm_medium=tofu_cta&utm_campaign=newsletter"
+                      className="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:from-indigo-700 hover:to-indigo-600 transition-all whitespace-nowrap flex items-center gap-2"
+                    >
+                      Get Free Tips
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
                   </div>
-                  <a
-                    href="https://robeen.ai"
-                    className="bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all whitespace-nowrap"
-                  >
-                    Ask Robeen
-                  </a>
-                </div>
+                )}
+
+                {/* MOFU: Feature highlight CTA */}
+                {post.funnel_stage === 'mofu' && (
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-br from-indigo-50 via-white to-pink-50 p-8 rounded-3xl border border-indigo-200 shadow-sm">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-3xl shadow-lg">
+                        {post.category === 'Sleep Science' && '🌙'}
+                        {post.category === 'Feeding' && '🍼'}
+                        {post.category === 'Development' && '🎯'}
+                        {post.category === 'Parental Health' && '💚'}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 text-lg mb-1">See How Robeen Helps</h4>
+                        <p className="text-slate-600 text-sm">
+                          {post.category === 'Sleep Science' && 'Track sleep patterns, get wake window alerts, and see what\'s working.'}
+                          {post.category === 'Feeding' && 'Log feeding sessions, track schedules, and never miss a feeding.'}
+                          {post.category === 'Development' && 'Track milestones, log activities, and celebrate every achievement.'}
+                          {post.category === 'Parental Health' && 'Check in on your wellness, track your sleep, and practice self-care.'}
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={`https://robeen.ai/download?utm_source=blog&utm_medium=mofu_cta&utm_campaign=${post.category.toLowerCase().replace(' ', '_')}`}
+                      className="bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:from-indigo-700 hover:to-pink-600 transition-all whitespace-nowrap flex items-center gap-2"
+                    >
+                      Try Robeen Free
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
+
+                {/* BOFU: Direct conversion CTA */}
+                {post.funnel_stage === 'bofu' && (
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 p-8 shadow-2xl">
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-pink-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+                    <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-3xl">📱</span>
+                          <span className="text-xs font-bold uppercase tracking-wider text-indigo-300 bg-indigo-500/20 px-2 py-1 rounded">
+                            #1 Baby Tracking App
+                          </span>
+                        </div>
+                        <h4 className="font-bold text-white text-2xl mb-2">Ready to Try Robeen?</h4>
+                        <p className="text-indigo-200 text-sm mb-4">
+                          Join 50,000+ parents who track sleep, feeding, and milestones with Robeen.
+                          Start your free 7-day trial today.
+                        </p>
+                        <div className="flex items-center gap-4 text-xs text-indigo-300">
+                          <span className="flex items-center gap-1">
+                            <CheckCircle size={14} className="text-green-400" /> Free trial
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <CheckCircle size={14} className="text-green-400" /> No credit card
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <CheckCircle size={14} className="text-green-400" /> Cancel anytime
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-3">
+                        <a
+                          href="https://robeen.ai/download?utm_source=blog&utm_medium=bofu_cta&utm_campaign=conversion"
+                          className="bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold shadow-xl hover:bg-indigo-50 transition-all whitespace-nowrap flex items-center gap-2 justify-center"
+                        >
+                          Download Robeen
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
+                        </a>
+                        <div className="flex items-center justify-center gap-2">
+                          <div className="flex -space-x-2">
+                            <div className="w-6 h-6 rounded-full bg-indigo-400 border-2 border-slate-900 flex items-center justify-center text-xs">⭐</div>
+                            <div className="w-6 h-6 rounded-full bg-pink-400 border-2 border-slate-900 flex items-center justify-center text-xs">⭐</div>
+                            <div className="w-6 h-6 rounded-full bg-indigo-400 border-2 border-slate-900 flex items-center justify-center text-xs">⭐</div>
+                          </div>
+                          <span className="text-xs text-indigo-300">4.9 stars on App Store</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
