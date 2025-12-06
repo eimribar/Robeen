@@ -10,25 +10,27 @@ interface FAQProps {
 export function FAQ({ faqs }: FAQProps) {
   return (
     <div className="my-8 md:my-12">
-      <div className="bg-indigo-50/50 rounded-2xl p-6 md:p-10 border border-indigo-100/50">
-        <div className="flex items-center gap-3 mb-8">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-lg">?</span>
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8 border border-blue-100">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-blue-200">
+          <span className="text-2xl">❓</span>
           <h3 className="text-xl md:text-2xl font-bold text-gray-900">
             Frequently Asked Questions
           </h3>
         </div>
 
-        <div className="grid gap-4">
+        <div className="space-y-6">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:border-indigo-100 transition-colors"
+              className="bg-white rounded-xl p-5 md:p-6 shadow-sm border border-blue-100"
             >
-              <h4 className="font-bold text-gray-900 mb-3 text-lg">
-                {faq.question}
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-start gap-3">
+                <span className="text-blue-600 font-bold">Q:</span>
+                <span>{faq.question}</span>
               </h4>
-              <div className="text-gray-600 leading-relaxed pl-4 border-l-2 border-indigo-100">
-                {faq.answer}
+              <div className="flex items-start gap-3">
+                <span className="text-green-600 font-bold">A:</span>
+                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </div>
             </div>
           ))}
