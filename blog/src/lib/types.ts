@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 // Funnel stages for content strategy
 export type FunnelStage = 'tofu' | 'mofu' | 'bofu';
 
@@ -32,15 +34,17 @@ export interface BlogPost {
 
 export interface ContentBlock {
   type:
-    // Existing
-    | 'h2' | 'h3' | 'p' | 'quote' | 'list'
-    // Visual
-    | 'image' | 'comparison_table' | 'timeline'
-    // Structure
-    | 'callout' | 'expert_quote' | 'stat_highlight' | 'step_by_step'
-    | 'pros_cons' | 'tldr' | 'faq'
-    // Product & Linking
-    | 'robeen_feature' | 'internal_link';
+  // Existing
+  | 'h2' | 'h3' | 'p' | 'quote' | 'list'
+  // Visual
+  | 'image' | 'comparison_table' | 'timeline'
+  // Structure
+  | 'callout' | 'expert_quote' | 'stat_highlight' | 'step_by_step'
+  | 'pros_cons' | 'tldr' | 'faq'
+  // New Components
+  | 'audio_player' | 'checklist' | 'product_showcase' | 'glossary_term'
+  // Product & Linking
+  | 'robeen_feature' | 'internal_link';
 
   // Common fields
   text?: string;
@@ -62,6 +66,25 @@ export interface ContentBlock {
   src?: string;
   alt?: string;
   caption?: string;
+
+  // Audio Player fields
+  title?: string;
+  duration?: string;
+  audio_type?: 'cry' | 'soothing';
+
+  // Product Showcase fields
+  image?: string | StaticImageData;
+  price?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  rating?: number;
+  features?: string[];
+
+  // Glossary Term fields
+  term?: string;
+  phonetic?: string;
+  definition?: string;
+  example?: string;
 
   // Expert quote fields
   expert?: {

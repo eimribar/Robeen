@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/posts';
 import BlogPostContent from '@/components/BlogPostContent';
+import appMockup from '../../assets/images/robeen-app-mockup.png';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -173,7 +174,63 @@ function generateStructuredData(post: any, siteUrl: string) {
 // Server wrapper to fetch data
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  let post = await getPostBySlug(slug);
+
+  // TEMPORARY: Inject new blocks for verification
+  if (post && slug === 'sleep-training-methods-compared-find-what-works-for-you') {
+    post = {
+      ...post,
+      content_blocks: [
+        ...post.content_blocks,
+        {
+          type: 'h2',
+          text: 'New Features Library Demo',
+          id: 'new-features-demo'
+        },
+        {
+          type: 'p',
+          text: 'Below are the new components added to the Robeen design system.'
+        },
+        {
+          type: 'audio_player',
+          src: 'https://actions.google.com/sounds/v1/water/waves_crashing.ogg',
+          title: 'White Noise: Ocean Waves',
+          duration: '0:15',
+          audio_type: 'soothing'
+        },
+        {
+          type: 'checklist',
+          title: 'Bedtime Routine Checklist',
+          items: [
+            'Warm bath (5-10 mins)',
+            'Massage with lotion',
+            'Put on fresh diaper and pajamas',
+            'Read a bedtime story',
+            'White noise on',
+            'Lights out'
+          ]
+        },
+        {
+          type: 'product_showcase',
+          title: 'Track Sleep Like a Pro',
+          description: 'Get detailed insights into your baby\'s sleep patterns with the Robeen app. AI-powered analysis helps you find the perfect schedule.',
+          image: appMockup, // Pass the imported image object
+          price: 'Free Trial',
+          ctaText: 'Download App',
+          ctaLink: 'https://robeen.ai/download',
+          rating: 4.9,
+          features: ['AI Sleep Analysis', 'Smart Wake Windows', 'Cry Detection']
+        },
+        {
+          type: 'glossary_term',
+          term: 'Sleep Regression',
+          phonetic: 'sleep ri-gre-shun',
+          definition: 'A period of time when a baby who has been sleeping well suddenly starts waking up at night or skipping naps.',
+          example: 'The 4-month sleep regression is often caused by a change in sleep cycles.'
+        }
+      ]
+    };
+  }
 
   if (!post) {
     notFound();

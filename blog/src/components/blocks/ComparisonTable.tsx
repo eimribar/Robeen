@@ -10,21 +10,21 @@ interface ComparisonTableProps {
 
 export function ComparisonTable({ table }: ComparisonTableProps) {
   return (
-    <div className="my-8 md:my-12">
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden ring-1 ring-gray-900/5">
+    <div className="my-16 md:my-20">
+      <div className="bg-white rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
         {table.title && (
-          <div className="bg-gray-50/80 backdrop-blur-sm px-6 py-5 border-b border-gray-200">
-            <h4 className="text-lg font-bold text-gray-900">{table.title}</h4>
+          <div className="bg-gradient-to-r from-slate-50 to-white px-8 py-6 border-b border-slate-100">
+            <h4 className="text-xl font-black text-slate-900 tracking-tight">{table.title}</h4>
           </div>
         )}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
           <table className="w-full min-w-[600px]">
             <thead>
-              <tr className="bg-gray-50/50">
+              <tr className="bg-slate-50/50">
                 {table.headers.map((header, index) => (
                   <th
                     key={index}
-                    className={`px-6 py-4 text-left text-sm font-bold text-gray-900 uppercase tracking-wider ${index === 0 ? 'bg-gray-50/80 sticky left-0 z-10' : ''
+                    className={`px-8 py-5 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest ${index === 0 ? 'bg-slate-50/90 sticky left-0 z-10 backdrop-blur-sm' : ''
                       }`}
                   >
                     {header}
@@ -32,18 +32,18 @@ export function ComparisonTable({ table }: ComparisonTableProps) {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-50">
               {table.rows.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className="hover:bg-gray-50/50 transition-colors group"
+                  className="hover:bg-indigo-50/30 transition-colors group"
                 >
                   {row.map((cell, cellIndex) => (
                     <td
                       key={cellIndex}
-                      className={`px-6 py-5 text-sm leading-relaxed ${cellIndex === 0
-                          ? 'font-semibold text-gray-900 bg-white sticky left-0 z-10 group-hover:bg-gray-50/50 transition-colors shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
-                          : 'text-gray-600'
+                      className={`px-8 py-6 text-sm leading-relaxed ${cellIndex === 0
+                          ? 'font-bold text-slate-900 bg-white sticky left-0 z-10 group-hover:bg-indigo-50/30 transition-colors shadow-[2px_0_5px_-2px_rgba(0,0,0,0.03)]'
+                          : 'text-slate-600 font-medium'
                         }`}
                     >
                       {cell}

@@ -10,25 +10,23 @@ interface ImageBlockProps {
 
 export function ImageBlock({ src, alt, caption }: ImageBlockProps) {
   return (
-    <figure className="my-8 md:my-12 group">
-      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-md ring-1 ring-gray-900/5">
+    <figure className="my-16 md:my-20 group">
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-2xl shadow-slate-200 border-4 border-slate-900 ring-1 ring-slate-900/5 transition-all duration-500 hover:shadow-indigo-200/50 hover:scale-[1.01]">
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-95 group-hover:opacity-100"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
         />
 
-        {/* Overlay gradient for caption readability if needed, or just aesthetic */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Overlay gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
       </div>
       {caption && (
-        <figcaption className="mt-4 text-center text-sm text-gray-500 font-medium flex items-center justify-center gap-2">
-          <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          {caption}
+        <figcaption className="mt-6 text-center text-sm text-slate-500 font-bold tracking-wide flex items-center justify-center gap-2 px-4 uppercase">
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <span>{caption}</span>
         </figcaption>
       )}
     </figure>

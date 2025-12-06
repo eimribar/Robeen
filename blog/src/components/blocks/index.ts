@@ -11,3 +11,8 @@ export { FAQ } from './FAQ';
 // NEW: Product & Linking components
 export { RobeenFeature } from './RobeenFeature';
 export { InternalLink } from './InternalLink';
+// NEW: Library Expansion
+export { AudioPlayer } from './AudioPlayer';
+export { Checklist } from './Checklist';
+export { ProductShowcase } from './ProductShowcase';
+export { GlossaryTerm } from './GlossaryTerm';
